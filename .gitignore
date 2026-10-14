@@ -1,0 +1,73 @@
+
+# Compiled executables
+/csynth
+*.out
+*.exe
+
+# Object files and libraries
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+
+# Build directories
+build/
+bin/
+dist/
+debug/
+release/
+cmake-build-*/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+
+# Debugging and profiling
+*.core
+core
+core.*
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+*.profdata
+*.dSYM/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+.cache/
+
+# Neovim / LazyVim
+Session.vim
+Sessionx.vim
+.nvim.lua
+
+# Linux / desktop
+.Trash-*/
+.directory
+*~
+
+# Generated audio
+output.wav
+output.raw
+*.wav.tmp
+*.raw.tmp
+
+# Generated test artifacts
+coverage/
+test-results/
+tests/output/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
