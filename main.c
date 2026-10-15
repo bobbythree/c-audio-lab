@@ -60,8 +60,15 @@ int main(void) {
   FILE *file = fdopen(fd, "wb");
   if (file == NULL) {
     perror("failed to create file stream");
-    close(fd);
-    unlink(temp_path);
+
+    if (close(fd) == -1) {
+      perror("failed to close file descriptor");
+    }
+
+    if (unlink(temp_path) == -1) {
+      perror("failed to remove temporary file");
+    }
+
     return 1;
   }
 
