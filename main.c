@@ -1,12 +1,17 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 // Audio settings
 #define SAMPLE_RATE 44100
 #define PI 3.14159265358979323846
 #define DURATION 3
+#define WAV_HEADER_SIZE 44
 
 // Write a 16-bit unsigned integer in little-endian byte order
 bool write_u16(FILE *file, uint16_t value) {
@@ -34,21 +39,29 @@ int main(void) {
   uint64_t num_samples = (uint64_t)SAMPLE_RATE * DURATION;
   uint64_t data_size = num_samples * sizeof(int16_t);
 
-  if (data_size > UINT32_MAX - 36) {
+  if (data_size > UINT32_MAX - (WAV_HEADER_SIZE - 8)) {
     fprintf(stderr, "Error: audio duration exceeds WAV size limit\n");
     return 1;
   }
 
   uint32_t wav_data_size = (uint32_t)data_size;
-  uint32_t file_size = 36 + wav_data_size;
+  uint32_t file_size = (WAV_HEADER_SIZE - 8) + wav_data_size;
 
   // Create a binary WAV file
   const char *output_path = "output.wav";
-  const char *temp_path = "output.wav.tmp";
+  char temp_path[] = "output.wav.tmp.XXXXXX";
 
-  FILE *file = fopen(temp_path, "wb");
+  int fd = mkstemp(temp_path);
+  if (fd == -1) {
+    perror("failed to create temporary file");
+    return 1;
+  }
+
+  FILE *file = fdopen(fd, "wb");
   if (file == NULL) {
-    perror("failed to open file");
+    perror("failed to create file stream");
+    close(fd);
+    unlink(temp_path);
     return 1;
   }
 
