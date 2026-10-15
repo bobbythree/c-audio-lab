@@ -6,8 +6,8 @@ TARGET = csynth
 
 all: $(TARGET)
 
-$(TARGET): main.c
-	$(CC) $(CFLAGS) main.c -o $(TARGET) $(LDFLAGS)
+$(TARGET): examples/wav_generator.c
+	$(CC) $(CFLAGS) examples/wav_generator.c -o $(TARGET) $(LDFLAGS)
 
 clean:
 	rm -f $(TARGET)
