@@ -10,7 +10,7 @@
 // Audio settings
 #define SAMPLE_RATE 44100
 #define PI 3.14159265358979323846
-#define DURATION 3
+#define DURATION 10
 #define WAV_HEADER_SIZE 44
 
 // Write a 16-bit unsigned integer in little-endian byte order
@@ -32,8 +32,8 @@ bool write_u32(FILE *file, uint32_t value) {
 }
 
 int main(void) {
-  // Set tone frequency to 440 Hz (A4)
-  double frequency = 440.0;
+  // Set tone frequency
+  double frequency = 82.41;
 
   // Calculate sample count and WAV file sizes
   uint64_t num_samples = (uint64_t)SAMPLE_RATE * DURATION;
