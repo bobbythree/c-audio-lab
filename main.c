@@ -12,7 +12,7 @@ static gboolean on_key_press(GtkEventControllerKey *controller, guint keyval,
   keyval = gdk_keyval_to_lower(keyval);
 
   for (size_t i = 0; i < sizeof(notes) / sizeof(notes[0]); i++) {
-    if (notes[i].key == keyval) {
+    if ((guint)(unsigned char)notes[i].key == keyval) {
       g_print("Key: %c | Frequency: %.2f Hz\n", notes[i].key,
               notes[i].frequency);
       return TRUE;
