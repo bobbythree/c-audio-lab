@@ -9,7 +9,11 @@ all: $(TARGET)
 $(TARGET): main.c
 	$(CC) $(CFLAGS) main.c -o $(TARGET) $(LDFLAGS)
 
+run: $(TARGET)
+	./$(TARGET)
+
 clean:
 	rm -f $(TARGET)
 
-.PHONY: all clean
+.PHONY: all run clean
+

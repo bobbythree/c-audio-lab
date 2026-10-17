@@ -1,0 +1,25 @@
+#ifndef NOTES_H
+#define NOTES_H
+
+typedef struct {
+  char key;
+  double frequency;
+} Note;
+
+static const Note notes[] = {
+    {'a', 261.63}, // C4
+    {'w', 277.18}, // C#4
+    {'s', 293.66}, // D4
+    {'e', 311.13}, // D#4
+    {'d', 329.63}, // E4
+    {'f', 349.23}, // F4
+    {'j', 392.00}, // G4
+    {'i', 369.99}, // F#4
+    {'k', 440.00}, // A4
+    {'o', 415.30}, // G#4
+    {'l', 493.88}, // B4
+    {'p', 466.16}, // A#4
+    {';', 523.25}  // C5
+};
+
+#endif
