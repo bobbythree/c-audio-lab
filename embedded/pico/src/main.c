@@ -47,7 +47,23 @@ int main(void) {
   }
 
   // Keep the firmware running.
+  uint32_t sample_position = 0;
+
   for (;;) {
-    tight_loop_contents();
+    // Wait for an available audio buffer.
+    audio_buffer_t *buffer = take_audio_buffer(producer_pool, true);
+
+    // Access the buffer as signed 16-bit PCM samples.
+    int16_t *samples = (int16_t *)buffer->buffer->bytes;
+
+    // Generate a 240 Hz square wave.
+    for (uint32_t i = 0; i < buffer->max_sample_count; i++) {
+      samples[i] = (sample_position < 50) ? 4000 : -4000;
+      sample_position = (sample_position + 1) % 100;
+    }
+
+    // Submit the filled buffer for playback.
+    buffer->sample_count = buffer->max_sample_count;
+    give_audio_buffer(producer_pool, buffer);
   }
 }
