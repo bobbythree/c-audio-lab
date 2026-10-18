@@ -46,9 +46,12 @@ int main(void) {
     panic("unable to connect audio buffer pool");
   }
 
-  // Keep the firmware running.
+  // start I2S audio output
+  audio_i2s_set_enabled(true);
+
   uint32_t sample_position = 0;
 
+  // Keep the firmware running.
   for (;;) {
     // Wait for an available audio buffer.
     audio_buffer_t *buffer = take_audio_buffer(producer_pool, true);
