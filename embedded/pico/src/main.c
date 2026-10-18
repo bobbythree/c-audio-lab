@@ -61,7 +61,7 @@ int main(void) {
 
     // Generate a 240 Hz square wave.
     for (uint32_t i = 0; i < buffer->max_sample_count; i++) {
-      samples[i] = (sample_position < 50) ? 4000 : -4000;
+      samples[i] = (sample_position < 50) ? 300 : -300;
       sample_position = (sample_position + 1) % 100;
     }
 
