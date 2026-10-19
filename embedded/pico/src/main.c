@@ -2,6 +2,7 @@
 #include <pico/audio_i2s.h>
 #include <pico/platform/panic.h>
 #include <pico/stdlib.h>
+#include <stdint.h>
 
 // Define 24 kHz, 16-bit mono PCM audio.
 static audio_format_t audio_format = {
@@ -50,6 +51,7 @@ int main(void) {
   audio_i2s_set_enabled(true);
 
   uint32_t sample_position = 0;
+  uint32_t pulse_position = 0;
 
   // Keep the firmware running.
   for (;;) {
@@ -59,10 +61,12 @@ int main(void) {
     // Access the buffer as signed 16-bit PCM samples.
     int16_t *samples = (int16_t *)buffer->buffer->bytes;
 
-    // Generate a 240 Hz square wave.
+    // Generate a 60 Hz square wave with slow amplitude pulses.
     for (uint32_t i = 0; i < buffer->max_sample_count; i++) {
-      samples[i] = (sample_position < 50) ? 300 : -300;
+      int16_t amplitude = (pulse_position < 1200) ? 300 : 100;
+      samples[i] = (sample_position < 200) ? amplitude : -amplitude;
       sample_position = (sample_position + 1) % 100;
+      pulse_position = (pulse_position + 1) % 24000;
     }
 
     // Submit the filled buffer for playback.
