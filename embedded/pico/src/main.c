@@ -65,7 +65,7 @@ int main(void) {
     for (uint32_t i = 0; i < buffer->max_sample_count; i++) {
       int16_t amplitude = (pulse_position < 1200) ? 300 : 100;
       samples[i] = (sample_position < 200) ? amplitude : -amplitude;
-      sample_position = (sample_position + 1) % 100;
+      sample_position = (sample_position + 1) % 400;
       pulse_position = (pulse_position + 1) % 24000;
     }
 
