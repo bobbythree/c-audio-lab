@@ -59,6 +59,7 @@ Sessionx.vim
 output.wav
 output.raw
 *.wav.tmp
+output.wav.tmp.*
 *.raw.tmp
 
 # Generated test artifacts

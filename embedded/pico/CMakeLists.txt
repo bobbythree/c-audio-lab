@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.17)
 
 include(pico_sdk_import.cmake)
 include(pico_extras_import.cmake)
@@ -12,6 +12,11 @@ pico_sdk_init()
 add_executable(pico_firmware
     src/main.c
 )
+
+# SDK interface libraries add their sources to this target too.
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    set_property(SOURCE src/main.c APPEND PROPERTY COMPILE_OPTIONS -Wall -Wextra)
+endif()
 
 target_link_libraries(pico_firmware PRIVATE
     pico_stdlib
